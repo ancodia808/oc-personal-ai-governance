@@ -23,6 +23,7 @@ Maintain this checklist as work completes. A checked item requires working artif
   - Resolve issues by replacing/removing dependencies, satisfying applicable obligations, or obtaining the appropriate organizational review. Do not treat an automated scanner result as legal approval.
   - Repeat the review when dependencies, versions, bundled content, or distribution methods change. Track unresolved findings as rollout blockers where applicable.
 - [ ] Run a representative baseline pilot, tune useful alerts, and agree a weekly budget.
-- [ ] Review shareable contents, commit, and publish only to an approved GitHub destination.
+- [x] Review shareable contents, commit, and publish to the approved public repository: https://github.com/ancodia808/oc-personal-ai-governance.
+  - Shared source, skills, documentation and synthetic examples published; private runtime files excluded. Copyright holder: Oracle. Project license remains undecided. All 38 tests passed with elevation before publication.
 
 Model/workflow coaching initially identifies candidates with explicit uncertainty. Comparative validation precedes recommendations to switch defaults. VS Code and browser ChatGPT remain deferred.
