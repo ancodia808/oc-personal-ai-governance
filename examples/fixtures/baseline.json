@@ -1,0 +1,20 @@
+{
+  "synthetic": true,
+  "schema_version": 1,
+  "cutoff": "2026-09-29T17:00:00-05:00",
+  "week_start": "2026-09-28",
+  "timezone": "America/Chicago",
+  "coverage": "Synthetic local activity only; cloud and other devices are not represented.",
+  "budget": null,
+  "turns": [
+    {"id": "demo-1", "date": "2026-09-28", "project": "Delivery playbook", "task": "Draft workshop agenda", "input_tokens": 12000, "output_tokens": 3000, "active_minutes": 6},
+    {"id": "demo-2", "date": "2026-09-28", "project": "Integration demo", "task": "Investigate fixture failures", "input_tokens": 64000, "output_tokens": 8000, "active_minutes": 24},
+    {"id": "demo-3", "date": "2026-09-29", "project": "Delivery playbook", "task": "Revise acceptance checklist", "input_tokens": 20000, "output_tokens": 4000, "active_minutes": 9},
+    {"id": "demo-4", "date": "2026-09-29", "project": "Integration demo", "task": "Validate mapping examples", "input_tokens": 36000, "output_tokens": 6000, "active_minutes": 12}
+  ],
+  "findings": [
+    {"title": "Review the investigation workflow", "evidence": "demo-2 used 72,000 tokens over 24 active minutes. The synthetic scenario includes three repeated full-suite runs before narrowing the failing fixture.", "suggestion": "Try the smallest failing fixture first, then run the full suite once the focused check passes. Preserve the final validation scope."},
+    {"title": "Use explicit acceptance criteria", "evidence": "The synthetic agenda scenario required a follow-up to clarify its intended audience and duration.", "suggestion": "Include audience, session length, and required output sections in the initial request."},
+    {"title": "Model changes need quality evidence", "evidence": "This fixture contains no comparable quality results for alternate models or reasoning settings.", "suggestion": "Keep the current approach. Compare a lower-effort configuration on a repeatable synthetic task before recommending a switch."}
+  ]
+}

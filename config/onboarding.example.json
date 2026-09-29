@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "delivery_enabled": false,
+  "timezone": "America/New_York",
+  "platform": null,
+  "budget": {"mode": "baseline_first", "weekly_tokens": null},
+  "daily_report": {
+    "time": "06:00",
+    "days": "every_day",
+    "project_chat": true,
+    "email_enabled": false,
+    "email": null
+  },
+  "alerts": {
+    "check_interval_minutes": 30,
+    "active_processing_threshold_minutes": 120,
+    "friday_time": "18:00",
+    "slack_enabled": false,
+    "slack_handle": null,
+    "slack_workspace": null,
+    "slack_user_id": null,
+    "slack_workspace_id": null,
+    "recipient_verified": false,
+    "deduplication": "once_per_trigger_per_run"
+  },
+  "privacy": {"include_project_names": true, "include_task_descriptions": true, "include_prompt_excerpts": false},
+  "readiness": {"outlook_connection_verified": false, "telemetry_verified": false, "unattended_execution_verified": false}
+}

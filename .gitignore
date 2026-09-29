@@ -1,0 +1,23 @@
+# Private runtime data and local configuration
+/data/
+/reports/
+# User-specific generated artifacts (source code belongs elsewhere)
+/private/
+/runtime/
+/exports/
+/logs/
+/cache/
+/screenshots/
+/outputs/
+*.local.*
+*.sqlite
+*.sqlite3
+*.db
+*.db-*
+*.sqlite-*
+*.sqlite3-*
+.env
+.env.*
+policy.local.*
+__pycache__/
+*.pyc
