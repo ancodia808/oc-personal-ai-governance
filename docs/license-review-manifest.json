@@ -41,11 +41,11 @@
     },
     {
       "path": "examples/app/payload-report.html",
-      "sha256": "fd6a99e5daeaa026f0c32222939704874b7c2e85d0fbffdec69e4c727edea81f"
+      "sha256": "3d8b8e9e72d6e3da2ab22394f893bdc72b2a4542c5dd5ce1bf12e337882bb968"
     },
     {
       "path": "examples/app/payload-summary.md",
-      "sha256": "153a4ee8eef0deb3016cace60b826db8bc68b24fdf27ad7d06283f38a31053ac"
+      "sha256": "679907cb6ac88ca75fb5afc533004fa6c550505398ae85333ee201c1a9b82524"
     },
     {
       "path": "examples/fixtures/baseline.json",
@@ -93,7 +93,7 @@
     },
     {
       "path": "scripts/render_review.py",
-      "sha256": "95cc7b4fea41a5664e1e181fecfc6d835f1f42bb9d153300957a165bb71ad699"
+      "sha256": "a14b54c51c5a06723cfe5439a5dbc88adbf193093946dd0e361d2cc6b07761fd"
     },
     {
       "path": "tests/test_activity.py",
@@ -125,7 +125,7 @@
     },
     {
       "path": "tests/test_renderer.py",
-      "sha256": "e8521983a21e3a5efcee98d490aecaa975a13f4011c1da986bacaae25332d528"
+      "sha256": "4c632e5ec1e64dcc9b5fa2a245b9e7bec28e0ec6566f28dc610901d8cec3e26e"
     }
   ],
   "hash_format": "SHA-256 of UTF-8 text with LF-normalized line endings"

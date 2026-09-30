@@ -1,6 +1,6 @@
 # Daily usage review - SYNTHETIC EXAMPLE
 
-Through 2026-09-29T12:00:00-04:00 (ET).
+For the period September 28, 2026 at 12:00 AM ET to September 29, 2026 at 12:00 PM ET.
 
 Local Codex Desktop only; selected account; partial coverage. Other devices and cloud-only activity are not established as covered.
 
