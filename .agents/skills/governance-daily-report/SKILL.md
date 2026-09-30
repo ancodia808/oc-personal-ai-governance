@@ -3,6 +3,9 @@ name: governance-daily-report
 description: Generate and deliver the configured personal Codex Desktop daily usage report in an authorized scheduled project chat. Uses private configuration and delivery receipts.
 ---
 
+Hard runtime boundary: follow repository `AGENTS.md`. Use only Codex records/status as governance evidence. Never revisit logged external targets or query external services for enrichment or delivery verification. Only the configured email report/attachment and triggered Slack DM sends are allowed external runtime traffic; use immediate send responses and local ledger receipts. Missing recipient verification or uncertain outcomes require user action. Do not install packages or run external validation during checks.
+
+
 Work from the repository root. Read `private/pilot.local.json`, `private/collector.local.json`, and `docs/collector.md`. Stop without sending if delivery_enabled is false. No real data goes into versioned files. Do not install dependencies or modify source during a scheduled run.
 
 Use Python 3.11+ and the repository operating-system timezone adapter. No third-party packages or PYTHONPATH are needed. Display all notification times explicitly as ET; retain UTC in private machine-readable observations. Respect sandbox permissions; record a failure if execution cannot proceed. Do not silently change permissions or invent usage. Configuration account identity, recipient, and scheduled authorization must exist.

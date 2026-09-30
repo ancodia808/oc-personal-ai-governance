@@ -3,6 +3,9 @@ name: governance-monitor
 description: Check local Codex Desktop chats for Thinking or Working proxy advisories and deliver newly triggered alerts through the configured Slack DM during authorized monitoring.
 ---
 
+Hard runtime boundary: follow repository `AGENTS.md`. Use only Codex records/status as governance evidence. Never revisit logged external targets or query external services for enrichment or delivery verification. Only the configured email report/attachment and triggered Slack DM sends are allowed external runtime traffic; use immediate send responses and local ledger receipts. Missing recipient verification or uncertain outcomes require user action. Do not install packages or run external validation during checks.
+
+
 Read `private/pilot.local.json` and `docs/active-processing.md` from this repository. Stop if delivery_enabled is false. Use private storage for all observations and receipts. Do not change code or schedules during a check.
 
 1. Run `python scripts/monitor_inventory.py`. It restricts eligibility to Desktop-origin records for the configured account. Use operating-system Eastern timezone rules through scripts/eastern_time.py; no timezone package or PYTHONPATH is needed. Respect sandbox permissions. Missing files/tools are a coverage failure, not proof that nothing is active.

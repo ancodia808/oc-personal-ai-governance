@@ -22,3 +22,7 @@ Label each example as synthetic and record its fixture, configuration, generatio
 Skills and app commands must route private outputs to the designated storage location. Tests and CI use synthetic fixtures. Before staging or publishing, inspect the file list and contents for embedded user data; `.gitignore` does not protect already tracked files or data copied into documentation. Do not include real usage evidence in commit messages, issues, or pull request descriptions.
 
 If collected data is accidentally staged, unstage it and move it to private storage before committing. If it has entered Git history or been published, stop further publication and assess remediation with the user; merely adding an ignore rule does not remove historical data.
+
+## Sole-source and network boundary
+
+Governance evidence comes exclusively from ChatGPT/Codex records and status tools, within the supported Desktop scope. Runtime must not access the external sources/destinations observed in those records or query other services for enrichment or verification. Only configured email report delivery and triggered Slack DMs are permitted external runtime traffic; their immediate send responses and local receipts provide delivery evidence. Unknowns remain unknown. See `AGENTS.md` for the complete hard rules.

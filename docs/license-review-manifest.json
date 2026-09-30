@@ -5,11 +5,11 @@
   "files": [
     {
       "path": ".agents/skills/governance-daily-report/SKILL.md",
-      "sha256": "c77bdeb48febcb7d9c9aa6089826b501cf72201caaca92eec3dadf7f91eeca39"
+      "sha256": "b72d2114cf635de15cf4864651bff0737d8f34f01b9190a52d465431ee698047"
     },
     {
       "path": ".agents/skills/governance-monitor/SKILL.md",
-      "sha256": "528e550a7a01dda35d405071e8b82fb40fe3eb82df5d9ea5938c1b152ed58f51"
+      "sha256": "7141a152e1427f53a2c36d16d1c4b224955d1ed3393f2169b2b28d5ab7633687"
     },
     {
       "path": ".agents/skills/governance-onboarding/SKILL.md",

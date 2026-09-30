@@ -2,6 +2,8 @@
 
 PAIGe provides private Codex Desktop usage reports and Slack advisories for chats that appear to be running too long. Reusable project skills guide setup, reporting and monitoring; actual usage data and personal settings stay in ignored `private/` files, outside Git.
 
+Governance uses only Codex records and status tools. It does not revisit observed websites or query external services for evidence. External runtime traffic is limited to your configured email reports and Slack alerts.
+
 ## Requirements
 
 With this repository already cloned and Codex configured, you need:
