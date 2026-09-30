@@ -4,7 +4,10 @@ This module does not treat local task-start/token events as execution heartbeats
 No sending or scheduling occurs here.
 """
 from datetime import datetime, timedelta, time
-from zoneinfo import ZoneInfo
+try:
+    from .eastern_time import eastern as ZoneInfo
+except ImportError:
+    from eastern_time import eastern as ZoneInfo
 try:
     from .collect_usage import timestamp
 except ImportError:

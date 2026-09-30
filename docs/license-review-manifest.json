@@ -1,0 +1,132 @@
+{
+  "review_date": "2026-09-30",
+  "base_commit": "b0d292428d83d93eb17fd439fff3ef3565c4a266",
+  "scope": "Working-tree implementation, synthetic assets and configuration templates; excludes private data and mutable prose documentation",
+  "files": [
+    {
+      "path": ".agents/skills/governance-daily-report/SKILL.md",
+      "sha256": "c77bdeb48febcb7d9c9aa6089826b501cf72201caaca92eec3dadf7f91eeca39"
+    },
+    {
+      "path": ".agents/skills/governance-monitor/SKILL.md",
+      "sha256": "528e550a7a01dda35d405071e8b82fb40fe3eb82df5d9ea5938c1b152ed58f51"
+    },
+    {
+      "path": ".agents/skills/governance-onboarding/SKILL.md",
+      "sha256": "2adb4e215fd355f48c70158b32cf9cb867080715d2f9e921a5355200a61ac10c"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "dbd44e5ce1d3fcf42c3ee0ca8d78c8fddd62686837e444884427fe3653eb8bd2"
+    },
+    {
+      "path": "config/onboarding.example.json",
+      "sha256": "fc452553fd2b22161f1395a88e63a9e9206b4408598578afbcb5836daa570350"
+    },
+    {
+      "path": "config/readiness.example.json",
+      "sha256": "bd7f29c1d47203d37dd1df2c5dd2c3aadc02d1fddcc9500ba334f0badbdcb448"
+    },
+    {
+      "path": "examples/app/daily-report.html",
+      "sha256": "1b643e9a73304ce6957a866392a748fab8a8a9eeac9661b96dcdfa9a46c1bfb4"
+    },
+    {
+      "path": "examples/app/daily-summary.md",
+      "sha256": "48f29ef09862fdb2428873e2fea7e4a21d9351f3ee21fd1c5055511d6b28fc30"
+    },
+    {
+      "path": "examples/app/expected-metrics.json",
+      "sha256": "6283ac4f06a1248fa68cea73f289cb9c05b9e0b331cbf5b1c2da22553e523672"
+    },
+    {
+      "path": "examples/app/payload-report.html",
+      "sha256": "fd6a99e5daeaa026f0c32222939704874b7c2e85d0fbffdec69e4c727edea81f"
+    },
+    {
+      "path": "examples/app/payload-summary.md",
+      "sha256": "153a4ee8eef0deb3016cace60b826db8bc68b24fdf27ad7d06283f38a31053ac"
+    },
+    {
+      "path": "examples/fixtures/baseline.json",
+      "sha256": "d0a7ede851d9d31d04ecfbc285573c61c351521f23324cec8b82a94e0832301f"
+    },
+    {
+      "path": "examples/fixtures/payload-report.json",
+      "sha256": "d561c75f592ecf19fad687169770ad6170f8689fd80ab8e64d897f635c5bf649"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "6926536b9172a84edc5a02c49a32adaf1c0322fd9ac5d72c29b2422e382040b0"
+    },
+    {
+      "path": "scripts/build_demo.py",
+      "sha256": "2db24878c04948ede879327f925afd58fb817903bc1a9eb4ad2c023ee2646693"
+    },
+    {
+      "path": "scripts/check_activity.py",
+      "sha256": "99bc01093cd6c24d45710fd15b1f796e4872d3701349f634a745ac71f76ca51d"
+    },
+    {
+      "path": "scripts/collect_usage.py",
+      "sha256": "75216c0950aa89892197559392cfb8741c8112f0b97af751c1971f636b999638"
+    },
+    {
+      "path": "scripts/delivery_ledger.py",
+      "sha256": "ec183c7ebd79e7caa716f380116b53009afb9cbb6248751d07604ce61f97099a"
+    },
+    {
+      "path": "scripts/eastern_time.py",
+      "sha256": "8543784fe6126f412c3be644c0078d9e5b49010c07586297a5da003a45deebca"
+    },
+    {
+      "path": "scripts/evaluate_activity.py",
+      "sha256": "b48773e66cd35b2378c68e7859f10e57428ab1b274854c363f1030d4c88f3463"
+    },
+    {
+      "path": "scripts/monitor_inventory.py",
+      "sha256": "265fe67738f9b2387377d43acb3964992763d3357f295059c8dfe73e1645e568"
+    },
+    {
+      "path": "scripts/payload_activity.py",
+      "sha256": "cd7ada48b8e1a01b94337f3fdc2d39f451d54a00a6073329ebc84eb0e0a21c5b"
+    },
+    {
+      "path": "scripts/render_review.py",
+      "sha256": "95cc7b4fea41a5664e1e181fecfc6d835f1f42bb9d153300957a165bb71ad699"
+    },
+    {
+      "path": "tests/test_activity.py",
+      "sha256": "6b0457da016bd34f15b101eeede36e11712cd2c65e48ae935e31f7a233d318f6"
+    },
+    {
+      "path": "tests/test_activity_proxy.py",
+      "sha256": "ddad571c7626dfeab2e92593feeb4fd3f9610db1efddb0465d702dca99278b8c"
+    },
+    {
+      "path": "tests/test_collector.py",
+      "sha256": "0d538ef7ebd3e2d6283c3c740c07bee382246475e7a93fa54f0814bee1a0a7c4"
+    },
+    {
+      "path": "tests/test_delivery.py",
+      "sha256": "7ee944ece4f2eb1a319654d8ee4c5d62b7484f5a3926a593cba98a580805c1dd"
+    },
+    {
+      "path": "tests/test_demo.py",
+      "sha256": "5a9e8e833550e15a3bc9ba21a19db18dbbd96c9f71da87225ce8755ff6ac2176"
+    },
+    {
+      "path": "tests/test_eastern_time.py",
+      "sha256": "bcd4548633daddb9196882662a95a9faa299413c60f29310249f1f2fea5c0fb1"
+    },
+    {
+      "path": "tests/test_payload_activity.py",
+      "sha256": "847f0b9b7025ea461b90116cfa64eb6212f7b03204d7a675b5106ea7f23bce11"
+    },
+    {
+      "path": "tests/test_renderer.py",
+      "sha256": "e8521983a21e3a5efcee98d490aecaa975a13f4011c1da986bacaae25332d528"
+    }
+  ],
+  "hash_format": "SHA-256 of UTF-8 text with LF-normalized line endings"
+}

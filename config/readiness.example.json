@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "allowed_statuses": ["unverified", "passed", "blocked", "declined"],
+  "checks": {
+    "git_clone": {"status": "unverified"},
+    "python_runtime": {"status": "unverified"},
+    "timezone_in_sandbox": {"status": "unverified"},
+    "private_paths_ignored_untracked": {"status": "unverified"},
+    "desktop_account_and_logs": {"status": "unverified"},
+    "private_report": {"status": "unverified"},
+    "chat_status_tools": {"status": "unverified"},
+    "slack_identity_and_delivery": {"status": "unverified"},
+    "email_connection_and_delivery": {"status": "unverified"},
+    "schedule_tools_and_timezone": {"status": "unverified"},
+    "host_availability": {"status": "unverified"},
+    "retention_agreed": {"status": "unverified"}
+  },
+  "evidence_fields": ["checked_at", "evidence", "blocker", "next_action"],
+  "automation_ids": [],
+  "host_timezone": null,
+  "retention_days": null
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "collector_version": "1.0",
+  "start_inclusive": "2026-09-28T04:00:00Z",
+  "cutoff_exclusive": "2026-09-29T16:00:00Z",
+  "timezone": "America/New_York",
+  "totals": {
+    "input_tokens": 100,
+    "output_tokens": 10,
+    "total_tokens": 110,
+    "cached_input_tokens": 80,
+    "reasoning_output_tokens": 2
+  },
+  "daily": {
+    "2026-09-28": {
+      "input_tokens": 100,
+      "output_tokens": 10,
+      "total_tokens": 110,
+      "cached_input_tokens": 80,
+      "reasoning_output_tokens": 2
+    }
+  },
+  "projects": {
+    "Synthetic workshop": {
+      "input_tokens": 100,
+      "output_tokens": 10,
+      "total_tokens": 110,
+      "cached_input_tokens": 80,
+      "reasoning_output_tokens": 2
+    }
+  },
+  "unique_responses": 1,
+  "diagnostics": {},
+  "limitations": [
+    "Partial local observations."
+  ],
+  "synthetic": true,
+  "payload_activity": {
+    "sources": [
+      {
+        "group": "Outlook Email",
+        "messages": 12
+      },
+      {
+        "group": "Local project directory: Demo workspace",
+        "messages": 8
+      },
+      {
+        "group": "Website: docs.example.org",
+        "messages": 4
+      }
+    ],
+    "destinations": [
+      {
+        "group": "Local project directory: Demo workspace",
+        "messages": 6
+      },
+      {
+        "group": "Slack",
+        "messages": 2
+      }
+    ],
+    "observed_request_messages": 28,
+    "unclassified_request_messages": 3,
+    "conflicting_request_ids_excluded": 0,
+    "measurement_note": "Observed tool-request messages in the reporting interval, not bytes, email/message counts inside results, or confirmed transfers. One message counts once per group and direction; groups can overlap. Static wrapper inspection is partial; dynamic targets, browser interaction, arbitrary shell/script traffic and unrecognized tools are not attributed. Literal calls inside wrappers are inferred and may not have executed. Website destinations require explicit HTTP POST and outbound-payload evidence; GET/web-open requests appear only as sources. The current adapters do not establish website POST payloads. Posted labels describe outbound operations, not confirmed delivery. Search-provider hostnames are not exposed in these request records; result sites and domain filters are not treated as query destinations. Local directories and Codex app activity are excluded from this readout. External means outside the local Codex environment, not necessarily outside your organization. No account-wide ChatGPT coverage."
+  }
+}

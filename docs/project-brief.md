@@ -16,7 +16,7 @@ Establish a weekly personal usage budget, report daily progress against a soft l
 - Tokens, account allowance percentages, credits, and currency are distinct units. Never convert between them without a documented conversion source. Keep API usage separate unless explicitly added later.
 - Official [pricing documentation](https://learn.chatgpt.com/docs/pricing) is a reference to recheck during implementation; verify each user's data availability separately.
 
-## Proposed policy — awaiting confirmation
+## Proposed policy - awaiting confirmation
 
 | Decision | Proposed starting point |
 | --- | --- |

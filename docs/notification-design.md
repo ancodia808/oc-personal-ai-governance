@@ -25,11 +25,11 @@ Slack send-message and Outlook send-email tools are exposed in the current sessi
 
 Slack alerts include severity, trigger, project name, brief task description, measured active duration, latest observation time, and a quality-preserving action. Omit prompt excerpts and include token totals only when observed. A synthetic example:
 
-> RED — Long-running processing: Integration demo / Validate mapping examples has accumulated 2h 08m of active processing. Latest observation: [timestamp]. Review progress and set a checkpoint or stop condition before leaving it unattended. No automatic interruption has occurred. Synthetic example only.
+> RED - Long-running processing: Integration demo / Validate mapping examples has accumulated 2h 08m of active processing. Latest observation: [timestamp]. Review progress and set a checkpoint or stop condition before leaving it unattended. No automatic interruption has occurred. Synthetic example only.
 
-Daily email includes the same concise summary and up to three findings as the project chat. Local filesystem report links may not open from email or another device; identify the project chat as the place to access local details. Do not publish or attach private HTML automatically. Email and Slack content are external copies of private data, authorized only for the affected member's configured destinations.
+Daily email includes the same concise summary and up to three findings as the project chat, plus that run's generated HTML report as a file attachment. Recipients can download and open the attachment in a browser. Keep local filesystem links in the project chat, not email. Validate the attachment before claiming delivery; missing, oversized (3 MB or greater), or unsupported attachments block the email and are reported in chat. Preserve existing daily-email ledger keys and record attachment filename and size with the send receipt. Slack DMs remain point-in-time alerts without HTML attachments. Email and Slack content are external copies of private data, authorized only for the affected member's configured destinations; actual reports remain excluded from Git.
 
-## Delivery reliability — proposed
+## Delivery reliability - proposed
 
 Deduplicate by member, run, trigger, and delivery channel. Send once per trigger per run; Friday escalation remains distinct from the two-hour alert. Persist delivery state privately across restarts. Retry transient failures with bounded backoff; reconcile ambiguous sends before retrying to avoid duplicate messages. Record failures locally and surface them in the next report. Repeated escalation intervals remain unconfigured.
 

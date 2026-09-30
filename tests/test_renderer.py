@@ -13,6 +13,8 @@ class RendererTests(unittest.TestCase):
         self.assertIn('Week to date',summary)
         self.assertIn('No observations',summary)
         self.assertIn('110',summary)
+        self.assertIn('(ET)',summary)
+        self.assertIn('ET',page)
         self.assertEqual(summary.count('\n- '),3)
         self.assertNotIn('<script',page)
 

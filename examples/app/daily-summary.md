@@ -1,4 +1,4 @@
-# Daily usage review — SYNTHETIC DEMO
+# Daily usage review - SYNTHETIC DEMO
 
 Coverage: Synthetic local activity only; cloud and other devices are not represented.
 

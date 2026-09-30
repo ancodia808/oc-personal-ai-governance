@@ -4,13 +4,30 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 import json
 import os
+import re
 from pathlib import Path
 import sys
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+try:
+    from .payload_activity import summarize_request, aggregate_requests
+except ImportError:
+    from payload_activity import summarize_request, aggregate_requests
+from zoneinfo import ZoneInfoNotFoundError
+try:
+    from .eastern_time import eastern as ZoneInfo
+except ImportError:
+    from eastern_time import eastern as ZoneInfo
 
 VERSION = '1.0'
 FIELDS = ('input_tokens', 'output_tokens', 'total_tokens')
 SUBSETS = ('cached_input_tokens', 'reasoning_output_tokens')
+
+
+def project_label(cwd):
+    path = cwd.replace('\\', '/').rstrip('/')
+    # Codex's dated, automatically created projectless workspace layout.
+    if re.search(r'/Documents/Codex/\d{4}-\d{2}-\d{2}/[^/]+$', path, re.I):
+        return '<Chats without a project>'
+    return path.split('/')[-1]
 
 
 def timestamp(value):
@@ -51,6 +68,7 @@ def collect(home, account, start, cutoff, zone):
         raise ValueError('Account and a positive reporting interval are required')
     diagnostics = Counter()
     records, conflicts = {}, set()
+    requests, request_conflicts = {}, set()
     for folder in ('sessions', 'archived_sessions'):
         source = home / folder
         if not source.is_dir():
@@ -59,7 +77,7 @@ def collect(home, account, start, cutoff, zone):
         for path in sorted(source.rglob('*.jsonl')):
             # Scan content: timestamps/mtime of the filename are not usage dates.
             diagnostics['files_scanned'] += 1
-            metas, pending, models = [], [], {}
+            metas, pending, models, tool_calls = [], [], {}, []
             try:
                 with path.open(encoding='utf-8') as stream:
                     for line in stream:
@@ -77,6 +95,8 @@ def collect(home, account, start, cutoff, zone):
                                 pending.append((row.get('timestamp'), {k: payload.get(k) for k in ('response_id', 'thread_id', 'turn_id', 'usage')}))
                             elif kind == 'event_msg' and payload.get('type') == 'token_count':
                                 diagnostics['cumulative_snapshots_not_added'] += 1
+                            elif kind == 'response_item' and payload.get('type') in ('function_call', 'custom_tool_call'):
+                                tool_calls.append((row.get('timestamp'), payload))
                         except (ValueError, AttributeError, TypeError):
                             diagnostics['malformed_lines'] += 1
             except (OSError, UnicodeError):
@@ -84,11 +104,32 @@ def collect(home, account, start, cutoff, zone):
                 continue
             origins = {m['originator'] for m in metas if m['originator']}
             accounts = {m['creator_account_id'] for m in metas if m['creator_account_id']}
-            if origins != {'Codex Desktop'} or accounts != {account}:
-                diagnostics['excluded_identity_or_origin_files'] += 1
+            if len(origins) > 1 or len(accounts) > 1:
+                diagnostics['unattributed_files'] += 1
+                continue
+            if (origins and origins != {'Codex Desktop'}) or (accounts and accounts != {account}):
+                diagnostics['files_skipped_by_filters'] += 1
+                continue
+            if not origins or not accounts:
+                diagnostics['unattributed_files'] += 1
                 continue
             project = next((m['cwd'] for m in reversed(metas) if m['cwd']), 'Unknown')
-            project = project.replace('\\', '/').rstrip('/').split('/')[-1]
+            for raw_time, call in tool_calls:
+                try:
+                    if not start <= timestamp(raw_time) < cutoff:
+                        continue
+                    key = call.get('call_id')
+                    if not isinstance(key, str) or not key:
+                        diagnostics['tool_requests_missing_ids'] += 1
+                        continue
+                    groups = summarize_request(call, project)
+                    if key in requests and requests[key] != groups:
+                        request_conflicts.add(key)
+                    else:
+                        requests[key] = groups
+                except (ValueError, TypeError, AttributeError):
+                    diagnostics['invalid_tool_requests'] += 1
+            project = project_label(project)
             for raw_time, payload in pending:
                 rid = payload['response_id']
                 try:
@@ -131,6 +172,7 @@ def collect(home, account, start, cutoff, zone):
             'daily': {k: aggregate(v) for k, v in sorted(daily.items())},
             'projects': {k: aggregate(v) for k, v in sorted(projects.items())},
             'unique_responses': len(records), 'diagnostics': dict(diagnostics),
+            'payload_activity': aggregate_requests(requests, request_conflicts),
             'active_processing_seconds': None, 'ongoing_runs': None,
             'limitations': ['Local logs are an undocumented, version-dependent source.',
                            'No records means no observed usage, not proof of zero usage.',
@@ -175,7 +217,7 @@ def main():
         temporary.replace(destination)
         print('Private usage snapshot written. Review diagnostics before interpreting totals.')
     except ZoneInfoNotFoundError:
-        parser.exit(2, 'Timezone database missing: install requirements.txt in your Python environment.\n')
+        parser.exit(2, 'System timezone rules unavailable: repair or update the operating system.\n')
     except (ValueError, KeyError, OSError):
         parser.exit(2, 'Collection failed: check private configuration, timestamps, source and output permissions.\n')
 

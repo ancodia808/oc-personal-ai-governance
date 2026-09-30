@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from zoneinfo import ZoneInfo
+from scripts.eastern_time import eastern as ZoneInfo
 from scripts.collect_usage import collect, timestamp, week_start, output_path
 
 
@@ -47,7 +47,10 @@ class CollectorTests(unittest.TestCase):
         self.write('sessions/a.jsonl',[self.row()],account=None)
         self.write('sessions/b.jsonl',[self.row('b')],origin='codex_vscode')
         self.write('sessions/c.jsonl',[self.row('c')],account='other')
-        self.assertEqual(self.run_collect()['unique_responses'],0)
+        result=self.run_collect()
+        self.assertEqual(result['unique_responses'],0)
+        self.assertEqual(result['diagnostics']['files_skipped_by_filters'],2)
+        self.assertEqual(result['diagnostics']['unattributed_files'],1)
 
     def test_half_open_boundaries_and_local_day(self):
         self.write('sessions/old-name.jsonl',[self.row('a',self.start.isoformat()),self.row('b',self.end.isoformat()),self.row('c','2026-09-29T02:00:00Z')])
@@ -81,6 +84,17 @@ class CollectorTests(unittest.TestCase):
         r=self.run_collect()
         self.assertEqual(r['diagnostics']['missing_source_directories'],2)
         self.assertIsNone(r['ongoing_runs'])
+
+    def test_payload_requests_identity_interval_and_duplicate(self):
+        def call(key, when='2026-09-29T12:00:00Z'):
+            return {'type':'response_item','timestamp':when,'payload':{'type':'function_call','call_id':key,'name':'mcp__codex_apps__slack_slack_search_public','arguments':'{"query":"PRIVATE BODY"}'}}
+        self.write('sessions/a.jsonl',[call('a'),call('old','2026-09-20T12:00:00Z'),call('end',self.end.isoformat())])
+        self.write('archived_sessions/a.jsonl',[call('a')])
+        self.write('sessions/b.jsonl',[call('wrong')],account='another')
+        r=self.run_collect()['payload_activity']
+        self.assertEqual(r['sources'],[{'group':'Slack','messages':1}])
+        self.assertEqual(r['observed_request_messages'],1)
+        self.assertNotIn('PRIVATE BODY',json.dumps(r))
 
 
 if __name__=='__main__':unittest.main()
