@@ -14,6 +14,8 @@ The README is the user-facing quick start. This document is the agent's detailed
 
 ## Update or migrate
 
+For Windows setup failures before a command starts, follow [Windows sandbox troubleshooting](windows-sandbox-troubleshooting.md). It documents the confirmed `helper_sandbox_lock_failed` diagnosis, scoped SYSTEM Write DAC repair, rollback and scheduled-run verification. Apply only when the captured process/access evidence matches; do not change machine permissions during routine governance checks. Timezone failures have a separate [troubleshooting guide](timezone-troubleshooting.md).
+
 Use `git status --short` and `git pull --ff-only`; preserve intentional local source changes instead of forcing reset/clean. Review changed skills and scripts. There are no third-party Python runtime packages to install. Retest affected behavior after interpreter, OS, account or connector changes. Keep the checkout path stable or update schedule project/target references after moving it.
 
 On a new machine, clone shared source and repeat onboarding with the user's own identity. Do not automatically copy another user's configuration, logs or receipts. Reconcile old schedules before activating replacements to prevent two hosts sending duplicate reports. A local SQLite ledger does not deduplicate independently running machines.

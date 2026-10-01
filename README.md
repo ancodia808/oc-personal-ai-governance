@@ -37,6 +37,20 @@ Monitoring covers eligible local Desktop chats among the **50 most recent chats 
 
 ## Validation
 
+### Offline chat reminders (optional)
+
+From a terminal in this repository, run:
+
+```sh
+python -B scripts/offline_monitor.py
+```
+
+Use `python3` on macOS. This performs one check, prints the results immediately, and exits. Codex supplies the 30-minute cadence; no persistent terminal process is needed. It uses no network, model tokens, Task Scheduler, or third-party packages. Manual terminal execution avoids the Codex agent sandbox; scheduled execution still requires working sandbox permissions.
+
+Results stay in `private/offline-monitor/latest.json`. These are **unfinished chat reminders** based on local starts without a recorded finish; interrupted or abandoned chats can also appear. They do not establish Thinking/Working status. The two-hour and Friday 6:00 pm ET rules still apply. Offline scans cover all attributable local Desktop logs, rather than the live monitor's recent-50-plus-pinned scope.
+
+Add `--queue` to prepare one consolidated Slack digest per 30-minute check. Each unmatched start has its own line. Starts roll off at 24 hours with a one-time **Final Notice!**, including delayed notices after a missed check. The runner never sends or connects to Slack. A delivery agent must revalidate and claim each queued reminder before sending; see [offline operation and delivery](docs/offline-monitor.md). Codex monitoring schedules invoke the one-shot digest workflow; daily reporting remains unchanged. New offline-runner Windows validation is complete; macOS execution still needs validation.
+
 After activation, visually check the deployment:
 
 1. **Your settings:** Ask the setup chat to show your saved configuration summary. Confirm your email, Slack workspace/user, selected delivery channels and ET schedules.

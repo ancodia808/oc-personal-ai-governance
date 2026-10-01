@@ -2,6 +2,10 @@
 
 Maintain this checklist as work completes. A checked item requires working artifacts and validation; configuration does not imply active monitoring.
 
+- [x] Add portable offline lifecycle detection and optional private delivery queue (2026-10-01).
+  - Standard-library terminal runner, no Task Scheduler/network/model calls; uncertain unfinished-turn policy, two-hour/Friday evaluation, revalidation and shared delivery-ledger claims. Windows one-shot and synthetic tests passed. See `docs/offline-monitor.md`.
+  - [ ] Validate macOS execution, sustained terminal operation/sleep recovery and authorized queued Slack delivery. Existing scheduled sandbox blockage remains unresolved; offline detection is not live Thinking/Working evidence.
+
 - [x] Reusable local Codex Desktop collector and initial measurement validation.
   - Account/origin filtering; per-response deduplication; conflict exclusion; subset accounting; timezone-aware intervals; private output guard; synthetic tests.
   - Local log compatibility remains version-dependent. macOS validation is still pending.
@@ -35,3 +39,5 @@ Model/workflow coaching initially identifies candidates with explicit uncertaint
 Timezone packaging: removed the tzdata dependency. Reporting is fixed to ET with UTC observations and operating-system conversions. Windows validation complete; macOS validation remains open.
 
 Release validation (2026-09-30): all 48 tests passed on Windows. Shared report refinements, attachment delivery, external activity summaries, onboarding and OS timezone support prepared for publication; private data and receipts excluded.
+
+2026-10-01 digest policy: implemented 24-hour cutoff, one-time final notices, separate lines per start, project/chat sorting, user mention and conditional greeting. One digest per 30-minute slot shares durable receipts across Friday/regular checks. Sandbox remediation and production scheduled validation remain pending.
