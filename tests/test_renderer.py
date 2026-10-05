@@ -4,17 +4,17 @@ from scripts.render_review import render
 
 def fixture():
     usage = dict(input_tokens=100,output_tokens=10,total_tokens=110,cached_input_tokens=80,reasoning_output_tokens=2)
-    return dict(schema_version=1,collector_version='1.0',start_inclusive='2026-09-28T04:00:00Z',cutoff_exclusive='2026-09-29T16:00:00Z',timezone='America/New_York',totals=usage,daily={'2026-09-28':usage},projects={'Synthetic workshop':usage},unique_responses=1,diagnostics={},limitations=['Partial local observations.'])
+    return dict(schema_version=1,collector_version='1.0',start_inclusive='2026-09-22T16:00:00Z',cutoff_exclusive='2026-09-29T16:00:00Z',timezone='America/New_York',totals=usage,daily={'2026-09-28':usage},projects={'Synthetic workshop':usage},unique_responses=1,diagnostics={},limitations=['Partial local observations.'])
 
 
 class RendererTests(unittest.TestCase):
     def test_reconciled_report_and_no_observation_day(self):
         page, summary=render(fixture(),'private/daily-review.html')
-        self.assertIn('Week to date',summary)
+        self.assertIn('Rolling 7 days',summary)
         self.assertIn('No observations',summary)
         self.assertIn('110',summary)
-        self.assertIn('For the period September 28, 2026 at 12:00 AM ET to September 29, 2026 at 12:00 PM ET.',summary)
-        self.assertIn('For the period September 28, 2026 at 12:00 AM ET to September 29, 2026 at 12:00 PM ET.',page)
+        self.assertIn('For the period September 22, 2026 at 12:00 PM ET to September 29, 2026 at 12:00 PM ET.',summary)
+        self.assertIn('For the period September 22, 2026 at 12:00 PM ET to September 29, 2026 at 12:00 PM ET.',page)
         self.assertIn('ET',page)
         self.assertEqual(summary.count('\n- '),3)
         self.assertNotIn('<script',page)

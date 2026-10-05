@@ -13,9 +13,9 @@ except ImportError:
     from eastern_time import eastern as ZoneInfo
 
 try:
-    from .collect_usage import output_path, timestamp, validated_usage, week_start, FIELDS
+    from .collect_usage import output_path, timestamp, validated_usage, rolling_start, FIELDS
 except ImportError:
-    from collect_usage import output_path, timestamp, validated_usage, week_start, FIELDS
+    from collect_usage import output_path, timestamp, validated_usage, rolling_start, FIELDS
 
 
 def validate(data):
@@ -58,7 +58,7 @@ def render(data, details_path, synthetic=False):
     total = data['totals']['total_tokens']
     today = data['daily'].get(cutoff.astimezone(zone).date().isoformat())
     today_text = number(today['total_tokens']) if today else 'No observations'
-    period = 'Week to date' if start == week_start(cutoff, zone) else 'Reporting interval'
+    period = 'Rolling 7 days' if start == rolling_start(cutoff) else 'Reporting interval'
     issues = {k:v for k,v in data['diagnostics'].items() if v and k in (
         'malformed_lines','unreadable_files','invalid_usage_records',
         'conflicting_response_ids_excluded','missing_source_directories')}
@@ -107,9 +107,9 @@ def render(data, details_path, synthetic=False):
             traffic_html += '</div>'
         traffic_html += f'<p>Unclassified request messages: {activity["unclassified_request_messages"]:,}. Conflicting request IDs excluded: {activity["conflicting_request_ids_excluded"]:,}.</p>'
         traffic_html += f'<p>Search request messages with unidentified provider hostname: {activity["unattributed_search_messages"]:,}. These are excluded from the website rankings. Unclassified messages may include internal activity.</p>'
-    document = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daily usage review</title>
+    document = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PAIGe - (Personal AI Governance) Daily usage review</title>
 <style>body{{font:16px system-ui;color:#193047;background:#f3f6fa;max-width:1080px;margin:auto;padding:32px 20px}}h1{{font-size:clamp(28px,5vw,42px)}}p,li{{line-height:1.6}}article,.panel,.metric{{background:white;border:1px solid #d9e2ec;border-radius:12px;padding:20px;margin:12px 0}}.metrics{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}}.metric strong{{display:block;font-size:28px;margin-top:8px}}table{{border-collapse:collapse;width:100%}}th,td{{padding:12px;text-align:left;border-bottom:1px solid #d9e2ec}}.scroll{{overflow:auto}}.barrow{{display:grid;grid-template-columns:100px 1fr 110px;gap:12px;align-items:center;margin:16px 0}}.track{{background:#edf1f6}}.bar{{height:20px;background:#236b83}}small{{color:#526479}}@media(max-width:500px){{.barrow{{grid-template-columns:90px 1fr}}.barrow strong{{grid-column:2}}}}</style></head><body>
-<header><strong>{label}</strong><h1>Daily usage review</h1><p>{e(period_text)}</p></header>
+<header><strong>{label}</strong><h1>PAIGe - (Personal AI Governance) Daily usage review</h1><p>{e(period_text)}</p></header>
 <section class="panel"><b>Coverage</b><p>{coverage}</p><p>{data['unique_responses']:,} unique responses observed. No observations does not establish zero usage.</p></section>
 <section class="metrics"><div class="metric">Today within this interval<strong>{today_text}</strong></div><div class="metric">{period}<strong>{number(total)}</strong>observed tokens</div><div class="metric">Weekly budget<strong>Not set</strong></div></section><p>{budget}</p>
 <h2>Findings</h2>{cards}<h2>Daily observed tokens</h2><section class="panel">{bars or '<p>No observations in this interval.</p>'}</section>
@@ -125,7 +125,7 @@ def render(data, details_path, synthetic=False):
             text = text.replace(char, '\\'+char)
         return text.replace('\n', ' ').replace('\r', ' ')
     target = str(Path(details_path).resolve()).replace('\\','/').replace(' ', '%20').replace('<','%3C').replace('>','%3E')
-    summary = f'# Daily usage review - {label}\n\n{period_text}\n\n{coverage}\n\n**{period}: {number(total)} tokens.** Today within this interval: {today_text}.\n\n{budget}\n\n'
+    summary = f'# PAIGe - (Personal AI Governance) Daily usage review - {label}\n\n{period_text}\n\n{coverage}\n\n**{period}: {number(total)} tokens.** Today within this interval: {today_text}.\n\n{budget}\n\n'
     summary += '\n'.join('- '+md(f) for f in findings)
     if activity is not None:
         for direction in ('sources', 'destinations'):

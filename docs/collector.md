@@ -4,7 +4,7 @@
 
 Each response ID is counted once across files. Identical copies are discarded; inconsistent copies are excluded entirely. Only per-response `usage` is summed, never cumulative thread/turn snapshots. Total must equal input plus output; cached input and reasoning output are subsets, never extra tokens. Missing subset counts remain unknown. Invalid/missing primary counts or identifiers are excluded. No dollar-cost conversion is performed.
 
-Intervals are start-inclusive and cutoff-exclusive. The default start is Monday midnight in the Eastern timezone, including daylight-saving changes. Usage is assigned by record timestamp, not filename, modification time, or task start. Full scans intentionally avoid missing old sessions resumed this week. Daily buckets use the same timezone. Missing days are absent, not asserted to be zero.
+Intervals are start-inclusive and cutoff-exclusive. The default window is the trailing seven days (168 hours) ending at collection cutoff; it continues across week and daylight-saving boundaries. Usage is assigned by record timestamp, not filename, modification time, or task start. Full scans intentionally avoid missing old sessions resumed within the window. Daily buckets use Eastern dates. Missing days are absent, not asserted to be zero.
 
 Output includes totals, daily/project breakdowns, record counts, diagnostics, and coverage limitations. It excludes prompts, response text, credentials, and raw account IDs. Project folder names remain private and may merge identically named folders. Parse errors, unsupported records, missing directories, and conflicting IDs are surfaced. These logs are an undocumented source: compatible observed schemas are supported, not guaranteed future versions. Appends after the read/cutoff appear on a later run.
 
@@ -38,7 +38,7 @@ All test fixtures are invented. Platform validation to date is Windows; macOS an
 
 ## Payload sources and destinations
 
-Daily HTML and Markdown reports include high-level requested sources and destinations over the same reporting interval as the token totals (week to date by default). HTML lists observed external groups; chat/email summaries list the top five in each direction. Local project directories and Codex app groups are filtered from both readouts, including when rendering older snapshots. External means outside the local Codex environment, not necessarily outside the organization. Both sort by request-message count descending, then group name.
+Daily HTML and Markdown reports include high-level requested sources and destinations over the same reporting interval as the token totals (rolling seven days by default). HTML lists observed external groups; chat/email summaries list the top five in each direction. Local project directories and Codex app groups are filtered from both readouts, including when rendering older snapshots. External means outside the local Codex environment, not necessarily outside the organization. Both sort by request-message count descending, then group name.
 
 The collector inspects tool-call metadata only in eligible account/Desktop logs. A call ID counts once across current and archived copies. Each request message contributes at most one count per group and direction, even if a wrapper contains multiple calls to that group. Conflicting group classifications for one ID are excluded. These counts are neither payload bytes nor the number of emails, Slack messages, files or search results inside a response, and do not confirm success.
 

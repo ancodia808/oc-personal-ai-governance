@@ -43,6 +43,11 @@ def week_start(cutoff, zone):
             - timedelta(days=local.weekday())).astimezone(timezone.utc)
 
 
+def rolling_start(cutoff):
+    """Start of the trailing 168-hour reporting window."""
+    return cutoff - timedelta(days=7)
+
+
 def validated_usage(value):
     if not isinstance(value, dict):
         raise ValueError('Missing usage')
@@ -201,14 +206,14 @@ def main():
     parser.add_argument('--config', required=True, type=Path, help='Private JSON with account_id and timezone')
     parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', Path.home()/'.codex')))
     parser.add_argument('--cutoff', help='ISO timestamp with offset; defaults to now')
-    parser.add_argument('--start', help='ISO timestamp with offset; defaults to local Monday midnight')
+    parser.add_argument('--start', help='ISO timestamp with offset; defaults to seven days before cutoff')
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
     try:
         config = json.loads(args.config.read_text(encoding='utf-8'))
         zone = ZoneInfo(config.get('timezone', 'America/New_York'))
         cutoff = timestamp(args.cutoff) if args.cutoff else datetime.now(timezone.utc)
-        start = timestamp(args.start) if args.start else week_start(cutoff, zone)
+        start = timestamp(args.start) if args.start else rolling_start(cutoff)
         destination = output_path(args.output)
         result = collect(args.codex_home.expanduser(), config['account_id'], start, cutoff, zone)
         destination.parent.mkdir(parents=True, exist_ok=True)

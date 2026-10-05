@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from scripts.eastern_time import eastern as ZoneInfo
-from scripts.collect_usage import collect, timestamp, week_start, output_path
+from scripts.collect_usage import collect, timestamp, week_start, rolling_start, output_path
 
 
 class CollectorTests(unittest.TestCase):
@@ -76,6 +76,13 @@ class CollectorTests(unittest.TestCase):
         cutoff=timestamp('2026-11-02T00:00:00-05:00')
         beginning=week_start(timestamp('2026-11-01T12:00:00-05:00'),self.zone)
         self.assertEqual((cutoff-beginning).total_seconds()/3600,169)
+
+    def test_rolling_window_crosses_week_and_dst_boundaries(self):
+        cutoff=timestamp('2026-11-02T12:00:00-05:00')
+        start=rolling_start(cutoff)
+        self.assertEqual(start.isoformat(),'2026-10-26T17:00:00+00:00')
+        self.assertEqual((cutoff-start).total_seconds(),7*24*60*60)
+        self.assertEqual(start.astimezone(self.zone).hour,13)
 
     def test_rejects_shareable_output(self):
         with self.assertRaises(ValueError):output_path('examples/collected.json')
